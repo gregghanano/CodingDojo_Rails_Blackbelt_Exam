@@ -1,0 +1,2 @@
+== README
+This project was a final exam for CodingDojo. The "black belt" exam tests our knowledge in Ruby on Rails including RESTful routes, CRUD operations, SQLite queries, and encryption/validation. The test also contained a curveball, which tested our ability to find the answers to problems we don't know or weren't taught. The project was built in a 4 hour time-limit, which didn't leave time for proper design.

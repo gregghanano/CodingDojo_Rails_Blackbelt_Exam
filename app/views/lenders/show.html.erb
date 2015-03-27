@@ -1,0 +1,60 @@
+<html>
+<head>
+	<title>Online Lending</title>
+</head>
+<body>
+	<h1>Lenders Page</h1>
+	<a href='/sessions/destroy'>Log Out</a>
+	<p>Name: <%= @lender.first_name %> <%= @lender.last_name %></p>
+	<p>Account Balance: $<%= @lender.money %></p>
+	<% if flash[:error] %>
+	<p><%= flash[:error]%></p>
+	<% end %>
+	<h4>List of people in need of help:</h4>
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Need Money For</th>
+			<th>Reason for Loan</th>
+			<th>Amount Needed</th>
+			<th>Amount Raised</th>
+			<th>Action</th>
+		</tr>
+		<% @transactions.each do |transaction|%>
+		<% if @lender.id != transaction.lender_id%>
+		<tr>
+			<td><%= transaction.first_name %> <%= transaction.last_name %></td>
+			<td><%= transaction.purpose %></td>
+			<td><%= transaction.description %></td>
+			<td>$<%= transaction.money %></td>
+			<td>$<%= transaction.raised %></td>
+			<td><form action='/histories/transact/<%= transaction.id %>' method='post'><input type='number' step='10' name='amount'><input name='authenticity_token' value='<%=form_authenticity_token %>' type='hidden'><input type='submit' value='Lend'></form></td>
+		</tr>
+			<%end%>
+			<%end %>
+		</table>
+		<h4>List of People You gave money too</h4>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Need Money For</th>
+				<th>Reason for Loan</th>
+				<th>Amount Needed</th>
+				<th>Amount Raised</th>
+				<th>Amount Lent</th>
+			</tr>
+			<% @transactions.each do |transaction| %>
+			<% if transaction.lender_id == @lender.id%>
+			<tr>
+				<td><%= transaction.first_name %> <%= transaction.last_name %></td>
+				<td><%= transaction.purpose %></td>
+				<td><%= transaction.description %></td>
+				<td>$<%= transaction.money %></td>
+				<td>$<%= transaction.raised %></td>
+				<td>$<%= transaction.amount %></td>
+			</tr>
+			<% end %>
+		<% end %>
+		</table>
+</body>
+</html>

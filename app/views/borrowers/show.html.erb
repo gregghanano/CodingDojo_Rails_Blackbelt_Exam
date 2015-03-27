@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title>Online Lending</title>
+</head>
+<body>
+	<h1>Borrowers Page</h1>
+	<a href='/sessions/destroy'>Log Out</a>
+	<p>Name: <%= @borrower.first_name %> <%= @borrower.last_name %></p>
+	<p>Amount Needed: $<%= @borrower.money %></p>
+	<p>Amount Raised: $<%= @borrower.raised %></p>
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Amount Donated</th>
+		</tr>
+		<% @transactions.each do |transaction| %>
+			<% if transaction.borrower_id == @borrower.id %>
+		<tr>
+			<td><%= transaction.lender_first_name %> <%= transaction.lender_last_name %></td>
+			<td><%= transaction.lender_email%></td>
+			<td>$<%= transaction.amount %></td>
+		</tr>
+			<% end %>
+		<% end%>
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title>Online Lending</title>
+	<style>
+		#lender, #borrower {
+			vertical-align:top;
+			display:inline-block;
+		}
+		#lender, #borrower {
+			margin-left: 200px;
+		}
+		.errors {
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<div id='lender'>
+		<% if flash[:errors] %>
+			<% flash[:errors].each do |x| %>
+			<p class='errors'><%= x.html_safe %></p>
+			<% end %>
+		<% end %>
+		<h1>Lender</h1>
+		<form action='/lenders/create' method='post'>
+			First Name: <input type='text' name='lender[first_name]'><br><br>
+			Last Name: <input type='text' name='lender[last_name]'><br><br>
+			Email: <input type='text' name='lender[email]'><br><br>
+			Password: <input type='password' name='lender[password]'><br><br>
+			Money: <input type='number' step='100' name='lender[money]'><br><br>
+			<input name='authenticity_token' value='<%=form_authenticity_token %>' type='hidden'>
+			<a href='/users/index/'>Already a member?</a> <input type='submit' value='Register'>
+		</form>
+	</div>
+	<div id='borrower'>
+		<% if flash[:borrowerErrors] %>
+			<% flash[:borrowerErrors].each do |x| %>
+			<p class='errors'><%= x.html_safe %></p>
+			<% end %>
+		<% end %>
+		<h1>Borrower</h1>
+		<form action='/borrowers/create' method='post'>
+			First Name: <input type='text' name='borrower[first_name]'><br><br>
+			Last Name: <input type='text' name='borrower[last_name]'><br><br>
+			Email: <input type='text' name='borrower[email]'><br><br>
+			Password: <input type='password' name='borrower[password]'><br><br>
+			Need Money For: <input type='text' name='borrower[purpose]'><br><br>
+			Description: <textarea name='borrower[description]'></textarea><br><br>
+			Amount Needed: <input type='number' step='100' name='borrower[money]'><br><br>
+			Amount Raise: <input type='number' name='borrower[raised]' value='0'><br><br>
+			<input name='authenticity_token' value='<%=form_authenticity_token %>' type='hidden'>
+			<a href='/users/index/'>Already a member?</a> <input type='submit' value='Register'>
+		</form>
+	</div>
+</body>
+</html>
